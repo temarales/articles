@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.4.14)  26 APR 2019 09:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2019.4.14)  27 APR 2019 17:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -985,12 +985,12 @@ Package babel Info: Redefining russian shorthand "|
 Package babel Info: Redefining russian shorthand "~
 (babel)             in language  on input line 121.
 
-<pictures/block_diagram.png, id=92, 456.70625pt x 816.04875pt>
+<pictures/block_diagram.png, id=92, 442.65375pt x 874.26625pt>
 File: pictures/block_diagram.png Graphic file (type png)
 
 <use pictures/block_diagram.png>
 Package pdftex.def Info: pictures/block_diagram.png used on input line 126.
-(pdftex.def)             Requested size: 228.35255pt x 408.02338pt.
+(pdftex.def)             Requested size: 221.32632pt x 437.13205pt.
 LaTeX Font Info:    T2A-bx encoding encountered on input line 127.
 
 
@@ -1053,37 +1053,37 @@ Package babel Info: Redefining russian shorthand "|
 Package babel Info: Redefining russian shorthand "~
 (babel)             in language  on input line 166.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 170.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 170.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
+(babel)             in language  on input line 173.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 182.
+(babel)             in language  on input line 185.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 182.
+(babel)             in language  on input line 185.
 Package babel Info: Redefining russian shorthand "|
-(babel)             in language  on input line 182.
+(babel)             in language  on input line 185.
 Package babel Info: Redefining russian shorthand "~
-(babel)             in language  on input line 182.
+(babel)             in language  on input line 185.
  [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 185.
 
 (./example-short-latex-ru.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 185.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 185.
 Package rerunfilecheck Info: File `example-short-latex-ru.out' has not changed.
 
-(rerunfilecheck)             Checksum: D6224006ED6183F8B01C897F7A198A1B;3329.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
+(rerunfilecheck)             Checksum: F17C9F8E56003E92849C7C221787A237;3361.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 185.
  ) 
 Here is how much of TeX's memory you used:
  12203 strings out of 493013
- 166171 string characters out of 6135682
- 251229 words of memory out of 5000000
- 15557 multiletter control sequences out of 15000+600000
+ 166161 string characters out of 6135682
+ 252229 words of memory out of 5000000
+ 15556 multiletter control sequences out of 15000+600000
  16022 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,9n,34p,1359b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,9n,34p,1363b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
@@ -1099,10 +1099,10 @@ lic/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx172
 xmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/publ
 ic/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200
 .pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on example-short-latex-ru.pdf (6 pages, 263521 bytes).
+Output written on example-short-latex-ru.pdf (6 pages, 265604 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
+ 192 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
+ 36 named destinations out of 1000 (max. 500000)
  139 words of extra memory for PDF output out of 10000 (max. 10000000)
 
