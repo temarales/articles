@@ -1,0 +1,8 @@
+Название: Optimization of digital signal compression algorithms for systems with shared memory
+
+Аннотация: Nowdays information technologies are developing and they are used in different areas of science and technologies. One of the most perspective direction is digital signal processing. Compression algorithms are usually used for storage and information transfer. But different types of methods are more effective for different types of signals. In this work we consider the problem of finding the optimal compression algorithm,
+corresponding to the signals of each specific type. So we have developed an algorithm for sorting out the signal transformations, for which the resources of the Voronezh State University supercomputer center are used.
+
+Ключевые слова: signal compression, parallel programming, discrete Fourier transformation
+
+
