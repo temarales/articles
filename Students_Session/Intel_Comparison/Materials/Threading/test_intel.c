@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include </home/temarales/intel/advisor_2019.3.0.591490/include/advisor-annotate.h>
 #define gravity 10 // гравитационная постоянная
 #define dt 0.1 // шаг по времени
 #define N 800 // количество частиц
@@ -35,23 +34,17 @@ void Init()
 void CalcForces1()
 {
  for (int i = 0; i < N; i++)
-   {
-     //ANNOTATE_SITE_BEGIN();
-     for (int j = 0; j < N; j++)
-       {
-	 //ANNOTATE_TASK_BEGIN();
-	 if (i == j) continue;
-	 double dx = p[j].x - p[i].x, dy = p[j].y - p[i].y,
-	   r_2 = 1 / (dx * dx + dy * dy),
-	   r_1 = sqrt(r_2),
-	   fabs = gravity * m[i] * m[j] * r_2;
-	 if (fabs > fmax) fabs = fmax;
-	 f[i].x = f[i].x + fabs * dx * r_1;
-	 f[i].y = f[i].y + fabs * dy * r_1;
-	 //ANNOTATE_TASK_END();
-       }
-     //ANNOTATE_SITE_END();
-   }
+ for (int j = 0; j < N; j++)
+ {
+ if (i == j) continue;
+ double dx = p[j].x - p[i].x, dy = p[j].y - p[i].y,
+ r_2 = 1 / (dx * dx + dy * dy),
+ r_1 = sqrt(r_2),
+ fabs = gravity * m[i] * m[j] * r_2;
+if (fabs > fmax) fabs = fmax;
+ f[i].x = f[i].x + fabs * dx * r_1;
+ f[i].y = f[i].y + fabs * dy * r_1;
+ }
 }
 void MoveParticlesAndFreeForces()
 {
@@ -71,15 +64,11 @@ void MoveParticlesAndFreeForces()
 void main()
 {
  Init();
- //double t = omp_get_wtime();
- //ANNOTATE_SITE_BEGIN(allRows);
+#pragma code_aling 32
  for (int i = 0; i < Niter; i++)
  {
-  //ANNOTATE_TASK_BEGIN(eachRow);
  CalcForces1();
  MoveParticlesAndFreeForces();
- //ANNOTATE_TASK_END(eachRow);
  }
- //ANNOTATE_SITE_END(allRows);
  //t = omp_get_wtime() - t;
 }

@@ -1,8 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include <math.h>
-#include </home/temarales/intel/advisor_2019.3.0.591490/include/advisor-annotate.h>
+#include <omp.h>
+#define Nthr 2 
 #define gravity 10 // гравитационная постоянная
 #define dt 0.1 // шаг по времени
 #define N 800 // количество частиц
@@ -19,6 +20,7 @@ typedef struct Force
 Particle p[N];
 Force f[N];
 double m[N];
+Force tf[N][Nthr];
 void Init()
 {
  for (int i = 0; i < N; i++)
@@ -31,30 +33,45 @@ void Init()
  f[i].x = 0;
  f[i].y = 0;
  }
-}
-void CalcForces1()
-{
  for (int i = 0; i < N; i++)
-   {
-     //ANNOTATE_SITE_BEGIN();
-     for (int j = 0; j < N; j++)
-       {
-	 //ANNOTATE_TASK_BEGIN();
-	 if (i == j) continue;
-	 double dx = p[j].x - p[i].x, dy = p[j].y - p[i].y,
-	   r_2 = 1 / (dx * dx + dy * dy),
-	   r_1 = sqrt(r_2),
-	   fabs = gravity * m[i] * m[j] * r_2;
-	 if (fabs > fmax) fabs = fmax;
-	 f[i].x = f[i].x + fabs * dx * r_1;
-	 f[i].y = f[i].y + fabs * dy * r_1;
-	 //ANNOTATE_TASK_END();
-       }
-     //ANNOTATE_SITE_END();
-   }
+ for (int j = 0; j < Nthr; j++)
+ {
+ tf[i][j].x = 0;
+ tf[i][j].y = 0;
+ }
 }
-void MoveParticlesAndFreeForces()
+void CalcForces2ParB()
 {
+#pragma omp parallel for num_threads(Nthr)
+ for (int i = 0; i < N - 1; i++)
+ {
+ int k = omp_get_thread_num();
+ for (int j = i + 1; j < N; j++)
+ {
+ double dx = p[j].x - p[i].x, dy = p[j].y - p[i].y,
+ r_2 = 1 / (dx * dx + dy * dy),
+ r_1 = sqrt(r_2),
+ fabs = gravity * m[i] * m[j] * r_2;
+ if (fabs > fmax) fabs = fmax;
+ tf[i][k].x += dx = fabs * dx * r_1;
+ tf[i][k].y += dy = fabs * dy * r_1;
+ tf[j][k].x -= dx;
+ tf[j][k].y -= dy;
+ }
+ }
+#pragma omp parallel for num_threads(Nthr)
+ for (int i = 0; i < N; i++)
+ for (int j = 0; j < Nthr; j++)
+ {
+ f[i].x += tf[i][j].x;
+ f[i].y += tf[i][j].y;
+ tf[i][j].x = 0;
+ tf[i][j].y = 0;
+ }
+}
+void MoveParticlesAndFreeForcesPar()
+{
+#pragma omp parallel for num_threads(Nthr)
  for (int i = 0; i < N; i++)
  {
  double dvx = f[i].x * dt / m[i],
@@ -70,16 +87,13 @@ void MoveParticlesAndFreeForces()
 
 void main()
 {
+double start_time = omp_get_wtime();
  Init();
- //double t = omp_get_wtime();
- //ANNOTATE_SITE_BEGIN(allRows);
  for (int i = 0; i < Niter; i++)
  {
-  //ANNOTATE_TASK_BEGIN(eachRow);
- CalcForces1();
- MoveParticlesAndFreeForces();
- //ANNOTATE_TASK_END(eachRow);
+ CalcForces2ParB();
+ MoveParticlesAndFreeForcesPar();
  }
- //ANNOTATE_SITE_END(allRows);
- //t = omp_get_wtime() - t;
+double end_time = omp_get_wtime();
+printf("%f", end_time-start_time);
 }
