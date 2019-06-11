@@ -23,7 +23,7 @@ void ReadData(double **signals)
 		fscanf(f,"\n");
 	}	
 	fclose(f);
-	free(file_name);
+	//free(file_name);
 }
 
 void ReadMatrixFromFile(double ** matrix, char *file_name)
@@ -36,15 +36,15 @@ void ReadMatrixFromFile(double ** matrix, char *file_name)
 		fscanf(fr, "\n");
 	}	
 	fclose(fr);
-	//free(file_name);
+	free(file_name);
 }
 
 void WriteMatrixToFile(double ** matrix, char *file_name)
 {
-	FILE *fw = fopen(file_name, "w+");
+	FILE *fw = fopen(file_name, "w");
 	for (int i = 0; i < N; i++)
 	{
-    	for (int j = 0; j < N; j++)
+    		for (int j = 0; j < N; j++)
 			fprintf(fw, "%lf ", matrix[i][j]);
 		fprintf(fw, "\n");
 	}
@@ -76,7 +76,7 @@ void ComputeDFT(double ** matrix)
 	}
 	printf("Сохранить матрицу ДПФ в файл? (y/n) ");
 	char answer;
-	scanf(" %c", &answer);
+	scanf("%s", &answer);
 	if(answer == 'y')
 		WriteMatrixToFile(matrix, "DFT.txt");
 }
@@ -87,7 +87,7 @@ void multiply(double *res, double **A, double* B)
 	{
 	      res[i] = 0;
 	      for (int j = 0; j < N; j++)
-		  	res[i] += A[i][j]*B[j];
+		res[i] += A[i][j]*B[j];
 	}
 }
 
@@ -112,10 +112,10 @@ void Copy(double **a, double **b)
 
 double SignalConversion(double **signals, double **S, double **T)
 {
-	double **G = (double **)malloc(M * sizeof(double*));
+	double **G = (double **)malloc(M * sizeof(double));
 	for (int i = 0; i < M; i++)
 		G[i] = (double *)malloc(N * sizeof(double));
-	double **F1 = (double **)malloc(M * sizeof(double*));
+	double **F1 = (double **)malloc(M * sizeof(double));
 	for (int i = 0; i < M; i++)
 		F1[i] = (double *)malloc(N * sizeof(double));
 	int *index = (int *)malloc(N * sizeof(int));
@@ -159,31 +159,31 @@ double SignalConversion(double **signals, double **S, double **T)
 	free(G);	
 	free(index);
 	free(F1);
-    return sqrt(delta1);
+        return sqrt(delta1);
 }
 
 int main(int argc, char ** argv) {
-	double **signals = (double **)malloc(M * sizeof(double*));
+	double **signals = (double **)malloc(M * sizeof(double));
 	for (int i = 0; i < M; i++)
 		signals[i] = (double *)malloc(N * sizeof(double));
 	ReadData(signals);
 
-	double **S = (double **)malloc(N * sizeof(double*));
+	double **S = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		S[i] = (double *)malloc(N * sizeof(double));
-	double **T = (double **)malloc(N * sizeof(double*));
+	double **T = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		T[i] = (double *)malloc(N * sizeof(double));
-	double **S1 = (double **)malloc(N * sizeof(double*));
+	double **S1 = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		S1[i] = (double *)malloc(N * sizeof(double));
-	double **T1 = (double **)malloc(N * sizeof(double*));
+	double **T1 = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		T1[i] = (double *)malloc(N * sizeof(double));
-	double **Tbuf = (double **)malloc(N * sizeof(double*));
+	double **Tbuf = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		Tbuf[i] = (double *)malloc(N * sizeof(double));
-	double **Sbuf = (double **)malloc(N * sizeof(double*));
+	double **Sbuf = (double **)malloc(N * sizeof(double));
 	for (int i = 0; i < N; i++)
 		Sbuf[i] = (double *)malloc(N * sizeof(double));
 	double *alpha = (double *)malloc(N * sizeof(double));
@@ -225,10 +225,10 @@ int main(int argc, char ** argv) {
 				}
 			      	double buf = 1 + alpha[i];
 			      	for (int j = 0; j < N; j++)
-						alpha[j] = -alpha[j]/buf;
+					alpha[j] = -alpha[j]/buf;
 			      	for (int k = 0; k < N; k++)
-						for (int j = 0; j < N; j++)
-				  			T1[k][j] = T[k][j] + alpha[j]*T[k][i];
+					for (int j = 0; j < N; j++)
+				  		T1[k][j] = T[k][j] + alpha[j]*T[k][i];
 				//Применение преобразования к сигналам и подсчет среднего отклонения
 				double delta1 = SignalConversion(signals, S1, T1);
 				if (delta1 < delta)
