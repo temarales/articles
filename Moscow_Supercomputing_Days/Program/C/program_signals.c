@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h> 
 
 #define N 10
 #define M 4
@@ -195,6 +196,7 @@ int main(int argc, char ** argv) {
 	//Выбор оптимальной матрицы
 	double delta = INFINITY;
  	int better = 1;
+	clock_t time = clock(); 
   	while (better)
 	{
      	 	better = 0;
@@ -251,6 +253,8 @@ int main(int argc, char ** argv) {
 	WriteResults(delta, deltaDFT);
 	WriteMatrixToFile(S, "S.txt");
 	WriteMatrixToFile(T, "T.txt");
+	time = clock() - time;
+  	printf ("It took me %d clicks (%f seconds).\n",time,((float)time)/CLOCKS_PER_SEC);
 	for (int i = 0; i < N; i++)
 	{
 		free(S[i]);

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <omp.h>
+#include <time.h> 
 
 #define N 10
 #define M 50
@@ -122,7 +123,7 @@ double SignalConversion(double **signals, double **S, double **T)
 	int *index = (int *)malloc(N * sizeof(int));
 
 	int p;
-	#pragma parallel for firstprivate(T) private(p) shared(G,signals)
+	#pragma parallel for private(p) shared(G,signals)
 	for (p = 0;  p < M; p++)
 		multiply(G[p], T, signals[p]);
 	//Сжатие
@@ -148,7 +149,7 @@ double SignalConversion(double **signals, double **S, double **T)
 				G[p][k] = 0;
 	}
 	//Обратное преобразование сигналов
-	#pragma parallel for firstprivate(S) private(p) shared(F1, G)
+	#pragma parallel for private(p) shared(F1, G)
 	for (p = 0;  p < M; p++)
 		multiply(F1[p], S, G[p]);
 	//Расчет среднего отклонения
@@ -201,6 +202,7 @@ int main(int argc, char ** argv) {
 	//Выбор оптимальной матрицы
 	double delta = INFINITY;
  	int better = 1;
+	clock_t time = clock(); 
   	while (better)
 	{
      	 	better = 0;
@@ -258,6 +260,8 @@ int main(int argc, char ** argv) {
 	WriteResults(delta, deltaDFT);
 	WriteMatrixToFile(S, "S.txt");
 	WriteMatrixToFile(T, "T.txt");
+	time = clock() - time;
+  	printf ("It took me %d clicks (%f seconds).\n",time,((float)time)/CLOCKS_PER_SEC);
 	for (int i = 0; i < N; i++)
 	{
 		free(S[i]);
